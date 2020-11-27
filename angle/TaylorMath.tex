@@ -1,0 +1,160 @@
+%DocumentClass
+\documentclass[onecolumn]{article} %Let's just say this is an assignment
+%Includes
+\usepackage{etex} %Plotting
+\usepackage[margin=1in]{geometry} %Normal margins!!!
+\usepackage[usenames,dvipsnames]{color} %used for font color. Must be before first invoke of Tikz
+\usepackage{xcolor} %More colors!
+\usepackage{siunitx} %SI Units
+\usepackage{amssymb} %maths
+\usepackage{amsmath} %maths
+\usepackage{amstext} %Text
+\usepackage{gensymb} %Degree symbol
+\usepackage{mathtools} %short intertext
+\usepackage{algorithmic}%Algorithms
+\usepackage{algorithm}%Algorithms
+\usepackage{enumitem} %Control over enums
+\usepackage{float} %Floaters (images)
+\usepackage{wrapfig} %Wrapping figures
+\usepackage{floatflt} %Wrapping figures
+\usepackage{pgfplots} %Plotting
+	\pgfplotsset{compat=1.3} %Configure PGFPlots
+	\usepgfplotslibrary{external} %Avoid recompiling hi-rez plots
+	%\tikzexternalize %Avoid recompiling hi-rez plots
+\usepackage{tikz} %Drawing in Tikz, amongst others
+\usepackage{circuitikz} %Circuits
+\usepackage[T1]{fontenc} %Allows to type pipes (|)
+\usepackage[utf8]{inputenc} %useful to type directly diacritic characters
+%End Includes
+
+
+%Own commands
+\pagestyle{empty}%No page numbers
+\newcommand{\ud}{\,\mathrm{d}}%Derivative sign
+\newcommand{\pd}{\,\partial}%Derivative sign
+\newcommand{\unit}[1]{\text{ #1}}%Unit
+\newcommand{\lp}{\left(}%Left Parenthese
+\newcommand{\rp}{\right)}%Right Parenthese
+%End Own Commands
+
+%%Templates
+%% **********************  Plot (Package: pgfplots) ******************************
+%\definecolor{codecolor}{RGB}{245,245,204}
+%\begin{figure}
+%	\centering
+%	\fcolorbox{YellowOrange}{codecolor}{
+%	\begin{tikzpicture}
+%	\begin{axis}[view={30}{30}, xlabel={$x$ label}, ylabel={$y$ label}, zlabel={$z$ label}, title={Title}] %xmin, xmax, ymin, ymax, zmin, zmax
+%	\addplot3[surf, shader=faceted, samples=40, domain=-180:180]{sin(x)*sin(y)};
+%	\end{axis}
+%	\end{tikzpicture}
+%	}
+%\end{figure}
+%%End Plot
+
+%% ************************ Circuit (Package: circuitikz) *************************
+%\begin{circuitikz}[american, scale=1.4] %Circuit
+%	\draw %Start drawing nodes
+%	(0,0) to[C, l=\SI{10}{\micro\farad}] (0,2) -- (0,3)
+%		to[R, l=\SI{2.2}{\kilo\ohm}] (4,3) -- (4,2)
+%		to[L, l =\SI{12}{\milli\henry}, i =$i_1$] (4,0) -- (0,0)
+%	(4,2) { to[D*, *-*, color=red] (2,0) }
+%	(0,2) to[R, l=\SI{1}{\kilo\ohm}, *-] (2,2)
+%		to [ cV, v=$\SI{.3}{\kilo\ohm} i_1$] (4,2)
+%	(2,0) to [ I ,	i =\SI{1}{\milli\ampere}, -*] (2,2)
+%;\end{circuitikz} %End Circuit
+%%End Circuit
+%%End Templates
+
+%Begin Document
+\begin{document}%Begin
+\begin{center}\textbf{\Huge Derivations}\end{center}
+\flushleft
+We seek the general perspective transform $\mathcal{F}$ of a quadrilateral,
+\[ M = \mathcal{F}\lp w_{p}, h_{p}, \theta, \phi, f_{V} \rp \]
+which produces a $4 \times 4$ warp matrix $M$ by which to transform the vertices of an image of width $w_{p}$ and height $h_{p}$ pixels, given a camera axis rotation $\theta$, out-of-plane (tilt) rotation $\phi$ and vertical field-of-view $f_{V}$.
+
+\begin{center}
+\begin{tikzpicture}
+	\draw (0,0.2) node{$O$};%Origin
+	\draw [->] (0,0) -- (15:10);%Top arrow
+	\draw [->] (0,0) -- (9.66,0);%Center far arrow
+	\draw [->] (0,0) -- (5.66,0);%Center near arrow
+	\draw [->] (0,0) -- (-15:10);%Bottom arrow
+	\draw (15:1) [densely dashed] arc(15:-15:1);%fv Arc
+	\draw (7.5:2) node{$\frac{f_{V}}{2}$};%Top half field of view
+	\draw (-7.5:2) node{$\frac{f_{V}}{2}$};%Bottom half field of view
+	\draw (15:10) -- (-15:10);%Far plane
+	\draw (15:5.86) -- (-15:5.86);%Near plane
+	\draw [line width=2] (7.66,2) -- (7.66,-2); %Draw straight target
+	\draw [line width=2, dashed, color=gray] (7.66,0) +(105:2) -- +(-75:2); %Draw tilted target
+	\draw [line width=2, dashed, color=gray] (7.66,0) +(180:2) -- +(0:2); %Draw flat target
+	\draw (7.66,-1.5) [densely dashed] arc (270:285:1.5) +(0.7,0) node{$\phi=\frac{f_{V}}{2}$};%Phi Tilted Arc
+	\draw (7.66,0)++(105:1.65) -- ++(195:0.35) -- ++(105:0.33);%Draw squareedge (perpendicular intersection)
+	\draw (8.25,1.5) node{$\phi=0$};%Phi Straight
+	\draw (7.66,1.5) [densely dashed] arc(90:180:1.5) +(0.35,0.25) node{$\phi=90\degree$};%Phi Flat Arc
+	\draw [|-|] (0,3) --  node[below]{$n$} (5.66,3);%O - Near dist
+	\draw [|-|] (0,3) -- node[above]{$f=n+d$} (9.66,3);%O - Far dist
+	\draw [|-|] (5.66,3) --  node[below]{$d$} (9.66,3);%Near - Far (d) dist
+	
+	%Divider
+	\draw [|-|] (10.33,2) -- node[left]{$d$} (10.33,-2);%Vertical dist
+	\draw [dotted] (7.66,2) -- (11,2);%Top dotted
+	\draw [dotted] (7.66,-2) -- (11,-2);%Top dotted
+	
+	%Frontal
+	\draw [|-|] (11,3) -- node[above]{$d$} node[below]{$=\sqrt{w_{p}^{2}+h_{p}^{2}}=||(w_{p},h_{p})||$} (15,3);%Top ruler
+	\draw (11,-2) [line width=2] rectangle +(4,4);%Master square
+	\draw (11.4,-1.2) [rotate around={-53.13:(13,0)}, fill=gray!15] rectangle +(3.2,2.4);%Inscribed rectangle
+	%\draw [help lines] (11,-2) grid +(4,4);%Draw grid
+	\draw [->] (13,0) -- +(0,1.9);%Draw master tilt vector of image
+	\draw [->] (13,0) -- +(90-53.13:1.9);%Draw tilt vector of image
+	\draw (13,1) [densely dashed] arc(90:90-53.13:1) +(-0.75,-0.75) node{$\theta=\arctan\lp\frac{w_{p}}{h_{p}}\rp$};%Draw tilt arc of image
+	\draw (12,-1) node{$w_{p}$};%Label width of image
+	\draw (14.25,-1.4) node{$h_{p}$};%Label height of image
+\end{tikzpicture}
+\end{center}
+The above figure illustrates the relationships between $w_{p}, h_{p}, \theta, \phi$ and $f_{V}$ for the particular configuration (Tilt equal to $\frac{f_{V}}{2}$, Rotation equal to \smash{$\arctan\lp\frac{w_{p}}{h_{p}}\rp$}) which results in the biggest image to process (The extreme case).
+
+Let us assign to each corner of the image a coordinate in the object coordinate system as follows, assuming the convention that the observer faces down the negative $z$-axis, with the positive $y$-axis pointing up and the positive $x$-axis pointing to the right:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+	\hline
+	% after \\ : \hline or \cline{col1-col2} \cline{col3-col4} ...
+	\textbf{Corner} & \textbf{Object Coordinate System} \\\hline
+	Top Left          & $\lp-\frac{w_{p}}{2},\frac{h_{p}}{2},0\rp$ \\\hline
+	Top Right       & $\lp\frac{w_{p}}{2},\frac{h_{p}}{2},0\rp$ \\\hline
+	Bottom Right & $\lp\frac{w_{p}}{2},-\frac{h_{p}}{2},0\rp$ \\\hline
+	Bottom Left    & $\lp-\frac{w_{p}}{2},-\frac{h_{p}}{2},0\rp$ \\\hline
+\end{tabular}
+\end{center}
+
+More specifically, we seek
+\[ \boxed{\mathcal{F}=PTR_{\phi}R_{\theta}} \]
+where $R_{\theta}$ is the rotation matrix around the $z$-axis, $R_{\phi}$ is the rotation matrix around the $x$-axis, $T$ is the translation matrix that displaces the coordinate system down the $z$-axis and $P$ is the projection matrix for a square viewport with vertical field-of-view $f_{V}$.\\\vspace{12pt}
+
+$R_{\theta}$ and $R_{\phi}$ are trivial to find; they are
+\[ R_{\theta} = \left[\begin{array}{cccc} \cos\theta & -\sin\theta & 0 & 0 \\ \sin\theta & \cos\theta & 0 & 0 \\0 & 0 & 1 & 0 \\0 & 0 & 0 & 1\end{array}\right] \]
+and
+\[ R_{\phi} = \left[\begin{array}{cccc} 1 & 0 & 0 & 0 \\ 0 & \cos\phi & -\sin\phi & 0 \\0 & \sin\phi & \cos\phi & 0 \\0 & 0 & 0 & 1\end{array}\right] \]
+
+\pagebreak
+
+T is more difficult to find, but not excessively so. We must first define a variable $d$ representing the side length of the square that would wholy contain any rotation of the image. This is plainly
+\[ d=\sqrt{w_{p}^{2}+h_{p}^{2}} \]
+Now, given $f_{V}$, we solve for the hypotenuse of a right triangle with an opposite side of length $\frac{d}{2}$ subtending an angle $\frac{f_{V}}{2}$. This measure we will denote $h$.
+\[ h = \frac{d}{2\sin\lp\frac{f_{V}}{2}\rp} \]
+It is $h$ that describes by how much to translate the object coordinate system down the $z$-axis. The matrix $T$ is therefore defined as: 
+\[ T = \left[\begin{array}{cccc}1 & 0 & 0 & 0 \\0 & 1 & 0 & 0 \\0 & 0 & 1 & -h \\0 & 0 & 0 & 1\end{array}\right] = \left[\begin{array}{cccc}1 & 0 & 0 & 0 \\0 & 1 & 0 & 0 \\0 & 0 & 1 & -\frac{d}{2\sin\lp\frac{f_{V}}{2}\rp} \\0 & 0 & 0 & 1\end{array}\right] \]
+The last matrix, the perspective matrix $P$, relies on a few more assumptions. Let us define two more values, $n$ and $f$, based on $d$ and $h$ computed above:
+\[ n = h-\frac{d}{2} \]
+\[ f = h+\frac{d}{2} \]
+These represent the distances to the near plane and far plane, respectively. Given that the aspect ratio is 1 (we are rotating the square in which the image is embedded), we can now define a perspective matrix $P$ as follows:
+\[ P = \left[\begin{array}{cccc}\frac{n}{n\tan\lp\frac{f_{V}}{2}\rp} & 0 & 0 & 0 \\0 & \frac{n}{n\tan\lp\frac{f_{V}}{2}\rp} & 0 & 0 \\0 & 0 & -\frac{(f+n)}{f-n} & -\frac{2fn}{f-n} \\0 & 0 & -1 & 0\end{array}\right] = \left[\begin{array}{cccc}\cot\lp\frac{f_{V}}{2}\rp & 0 & 0 & 0 \\0 & \cot\lp\frac{f_{V}}{2}\rp & 0 & 0 \\0 & 0 & -\frac{(f+n)}{f-n} & -\frac{2fn}{f-n} \\0 & 0 & -1 & 0\end{array}\right] \]
+One more thing needs to be elaborated upon: the size of the output image. A desirable property of the warp is that, for the special case $\theta=0, \phi=0$, it should leave the image unchanged (same size, no distortion), except for centering it. This can be accomplished if the viewport transform maps to a square image of side length $l$, where $l$ is defined as:
+\[ l= d\sec\lp\frac{f_{V}}{2}\rp \]
+This follows from the fact that the distance from the center point of the image to the point directly above it on the upper plane of the viewing frustrum is $h \tan \lp \frac{f_{V}}{2} \rp$, and the square side length is twice that distance since it also extends downwards to the lower plane. Hence, \\
+\[ l = 2h \tan \lp \frac{f_{V}}{2} \rp = 2\frac{d}{2\sin\lp\frac{f_{V}}{2}\rp} \tan \lp \frac{f_{V}}{2} \rp = d \frac{\tan \lp \frac{f_{V}}{2} \rp}{\sin \lp \frac{f_{V}}{2} \rp} = d\sec\lp\frac{f_{V}}{2}\rp \]
+\end{document} %End
+
