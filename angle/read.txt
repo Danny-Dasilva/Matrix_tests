@@ -11,7 +11,38 @@ https://stackoverflow.com/questions/17087446/how-to-calculate-perspective-transf
 https://www.learnopencv.com/homography-examples-using-opencv-python-c/
 https://docs.opencv.org/3.4/d9/dab/tutorial_homography.html
 
+https://docs.opencv.org/master/dc/d2c/tutorial_real_time_pose.html
+
 https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/
 
 
 https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html
+
+https://medium.com/analytics-vidhya/using-homography-for-pose-estimation-in-opencv-a7215f260fdd
+https://github.com/RaubCamaioni/OpenCV_Position
+#global camera
+https://stackoverflow.com/questions/16265714/camera-pose-estimation-opencv-pnp
+
+
+#also recalculate from known object
+https://miaodx.github.io/blogs/unrealcv_digest/camera_pose/
+#head pose pnp
+https://www.learnopencv.com/head-pose-estimation-using-opencv-and-dlib/
+
+https://www.cse.unr.edu/~bebis/CS485/Handouts/ShahBook.pdf
+
+
+
+https://stackoverflow.com/questions/29035653/how-can-i-estimate-the-camera-pose-with-3d-to-2d-point-correspondences-using-op
+
+
+https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html
+
+
+https://github.com/jpmerc/3D_Tracking
+
+
+https://stackoverflow.com/questions/35495075/opencv-find-angle-to-a-static-depth-skewed-rectangle
+
+
+https://arxiv.org/pdf/1809.10548.pdf
