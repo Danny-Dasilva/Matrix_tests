@@ -1,0 +1,48 @@
+
+first part is wrong, but will somewhat work on very small field of views, second part is correct but is very impractical.
+
+if the camera has 0 distortion, focal f and principal point (u0,v0), then its intrinsic matrix will be K=[f 0 u0; 0 f v0; 0 0 1]. any pixel (u,v) corresponds to the direction inv(K)*[u;v;1], the angle between the principal axis [0;0;1] and this direction is the one you're looking for.
+
+Ignoring distortion, you have f=(W/2)/tan(fov/2) so you can find the pixel focal from the field of view. (u0,v0) is very near the image center (W/2,H/2) so it's fine to use this value.
+
+If you wanted to do this properly, you'd obtain the distortion and intrinsic parameters through a camera calibration procedure, and you'd remove distortion when converting a pixel to a ray, other than that the maths would be the same.
+
+https://stackoverflow.com/questions/17087446/how-to-calculate-perspective-transform-for-opencv-from-rotation-angles
+https://www.learnopencv.com/homography-examples-using-opencv-python-c/
+https://docs.opencv.org/3.4/d9/dab/tutorial_homography.html
+
+https://docs.opencv.org/master/dc/d2c/tutorial_real_time_pose.html
+
+https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/
+
+
+https://docs.opencv.org/3.4/d7/d53/tutorial_py_pose.html
+
+https://medium.com/analytics-vidhya/using-homography-for-pose-estimation-in-opencv-a7215f260fdd
+https://github.com/RaubCamaioni/OpenCV_Position
+#global camera
+https://stackoverflow.com/questions/16265714/camera-pose-estimation-opencv-pnp
+
+
+#also recalculate from known object
+https://miaodx.github.io/blogs/unrealcv_digest/camera_pose/
+#head pose pnp
+https://www.learnopencv.com/head-pose-estimation-using-opencv-and-dlib/
+
+https://www.cse.unr.edu/~bebis/CS485/Handouts/ShahBook.pdf
+
+
+
+https://stackoverflow.com/questions/29035653/how-can-i-estimate-the-camera-pose-with-3d-to-2d-point-correspondences-using-op
+
+
+https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html
+
+
+https://github.com/jpmerc/3D_Tracking
+
+
+https://stackoverflow.com/questions/35495075/opencv-find-angle-to-a-static-depth-skewed-rectangle
+
+
+https://arxiv.org/pdf/1809.10548.pdf
