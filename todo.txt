@@ -1,0 +1,6 @@
+figure out reverse camera position matrix
+write compute angle equation
+convert to opencv
+
+use mathjax to write equations
+
