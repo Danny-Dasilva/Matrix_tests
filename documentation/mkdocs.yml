@@ -1,0 +1,81 @@
+site_name: Doc Generator
+site_description: Quickly generate docs with markdown and deploy them  
+site_url: https://danny-dasilva.github.io/mkdocs-material/
+theme:
+  name: material
+  custom_dir: docs/theme
+  palette:
+    scheme: iceberg 
+    primary: iceberg_blue 
+    accent: blue  
+  icon:
+    repo: fontawesome/brands/github-alt
+  #change logo here
+  logo: img/logo-white.svg
+  favicon: img/favicon.png
+  language: en
+repo_name: Danny-Dasilva/mkdocs-material
+repo_url: https://github.com/Danny-Dasilva/mkdocs-material.git
+edit_uri: ''
+google_analytics:
+- UA-133183413-1
+- auto
+plugins:
+- search
+- markdownextradata:
+    data: data
+
+# add navigation here
+nav:
+- Setup: index.md
+- features.md
+- customization.md
+- Example - Nested folder:
+  - Index.md with title: example-folder/index.md
+  - Sub folder:
+      - Custom Title: example-folder/sub-folder/index.md
+
+# extensions
+markdown_extensions:
+- pymdownx.inlinehilite
+- footnotes
+- pymdownx.tasklist:
+    custom_checkbox: true
+- toc:
+    permalink: true
+- markdown.extensions.codehilite:
+    guess_lang: false
+- markdown_include.include:
+    base_path: docs
+- admonition
+- pymdownx.details
+- codehilite
+- extra
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_div_format ''
+- pymdownx.tabbed
+- pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+extra:
+  social:
+  - icon: fontawesome/brands/github-alt
+    link: https://github.com/Danny-Dasilva
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/tiangolo
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/in/tiangolo
+  - icon: fontawesome/brands/medium
+    link: https://medium.com/@tiangolo
+  - icon: fontawesome/solid/globe
+    link: https://tiangolo.com
+extra_css:
+- css/termynal.css
+- css/custom.css
+extra_javascript:
+- js/termynal.js
+- js/toggleColor.js
+- js/custom.js
