@@ -46,3 +46,8 @@ https://stackoverflow.com/questions/35495075/opencv-find-angle-to-a-static-depth
 
 
 https://arxiv.org/pdf/1809.10548.pdf
+
+
+https://stackoverflow.com/questions/14444433/calculate-camera-world-position-with-opencv-python
+
+
