@@ -1,0 +1,59 @@
+[data-md-color-scheme="iceberg"] {
+
+  --md-default-fg-color: hsla(232, 75%, 95%, 1);
+  --md-default-fg-color--light: hsla(232, 75%, 90%, 0.62);
+  --md-default-fg-color--lighter: hsla(232, 75%, 90%, 0.32);
+  --md-default-fg-color--lightest: hsla(232, 75%, 90%, 0.12);
+  --md-default-bg-color: #161821;
+  
+  --md-default-bg-color--light: hsla(232, 15%, 21%, 0.54);
+  --md-default-bg-color--lighter: hsla(232, 15%, 21%, 0.26);
+  --md-default-bg-color--lightest: hsla(232, 15%, 21%, 0.07);
+  --md-code-fg-color: hsla(232, 18%, 86%, 1);
+  --md-code-bg-color: hsla(232, 15%, 15%, 1);
+  --md-code-hl-color: hsla(218, 100%, 63%, 0.15);
+  --md-code-hl-number-color: hsla(6, 74%, 63%, 1);
+  --md-code-hl-special-color: hsla(340, 83%, 66%, 1);
+  --md-code-hl-function-color: hsla(291, 57%, 65%, 1);
+  --md-code-hl-constant-color: hsla(250, 62%, 70%, 1);
+  --md-code-hl-keyword-color: hsla(219, 66%, 64%, 1);
+  --md-code-hl-string-color: hsla(150, 58%, 44%, 1);
+  --md-typeset-a-color: var(--md-primary-fg-color--light);
+  --md-typeset-mark-color: hsla(218, 100%, 63%, 0.3);
+  --md-typeset-kbd-color: hsla(232, 15%, 94%, 0.12);
+  --md-typeset-kbd-accent-color: hsla(232, 15%, 94%, 0.2);
+  --md-typeset-kbd-border-color: hsla(232, 15%, 14%, 1);
+  --md-admonition-bg-color: hsla(232, 0%, 100%, 0.025);
+  --md-footer-bg-color: hsla(232, 15%, 12%, 0.87);
+  --md-footer-bg-color--dark: hsla(232, 15%, 10%, 1)
+}
+.md-typeset .tx-switch button>code {
+ display:block;
+ color:var(--md-primary-bg-color);
+ background-color:var(--md-primary-fg-color)
+}
+:root > * {
+  /*main color*/
+  /*--md-primary-fg-color:#84a0c6;*/
+
+}
+a.external-link::after {
+  /* \00A0 is a non-breaking space
+        to make the mark be on the same line as the link
+    */
+  content: "\00A0[↪]";
+}
+
+a.internal-link::after {
+  /* \00A0 is a non-breaking space
+        to make the mark be on the same line as the link
+    */
+  content: "\00A0↪";
+}
+
+body:not([data-md-prefers-color-scheme="true"])[data-md-color-scheme="iceberg"] .md-icon .light-mode, body:not([data-md-prefers-color-scheme="true"])[data-md-color-scheme="iceberg"] .md-icon .system-mode, body:not([data-md-prefers-color-scheme="true"])[data-md-color-scheme="dracula"] .md-icon .unknown-mode {
+	 display: none;
+}
+body:not([data-md-prefers-color-scheme="true"])[data-md-color-scheme="default"] .md-icon .dark-mode, body:not([data-md-prefers-color-scheme="true"])[data-md-color-scheme="default"] .md-icon .system-mode, body:not([data-md-prefers-color-scheme="true"])[data-md-color-scheme="default"] .md-icon .unknown-mode {
+	 display: none;
+}
